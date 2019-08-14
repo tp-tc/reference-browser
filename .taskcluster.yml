@@ -177,6 +177,7 @@ tasks:
                                     REPOSITORIES: {$json: {mobile: "Reference Browser", taskgraph: "Taskgraph"}}
                                     HG_STORE_PATH: /builds/worker/checkouts/hg-store
                                     ANDROID_SDK_ROOT: /builds/worker/android-sdk
+                ANDROID_SDK_VERSION: 3859397
                                   - $if: 'tasks_for in ["github-pull-request"]'
                                     then:
                                         MOBILE_PULL_REQUEST_NUMBER: '${event.pull_request.number}'

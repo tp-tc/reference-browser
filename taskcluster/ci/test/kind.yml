@@ -4,6 +4,9 @@
 ---
 loader: taskgraph.loader.transform:loader
 
+kind-dependencies:
+    - toolchain
+
 transforms:
     - rb_taskgraph.transforms.variant:transforms
     - taskgraph.transforms.job:transforms
@@ -23,6 +26,9 @@ job-defaults:
     run:
         using: gradlew
         use-caches: false
+    fetches:
+        toolchain:
+            - android-sdk-linux
 
 jobs:
     nightly:

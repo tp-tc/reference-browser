@@ -4,6 +4,9 @@
 ---
 loader: taskgraph.loader.transform:loader
 
+kind-dependencies:
+    - toolchain
+
 transforms:
     - rb_taskgraph.transforms.variant:transforms
     - rb_taskgraph.transforms.build_apk:transforms
@@ -32,7 +35,9 @@ job-defaults:
         type: file
         name: public/target.{abi}.apk
         path: '/builds/worker/checkouts/src/app/build/outputs/apk/{gradle_build_type}/{fileName}'
-
+    fetches:
+        toolchain:
+            - android-sdk-linux
 jobs:
     nightly:
         attributes:

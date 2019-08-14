@@ -1,0 +1,42 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+---
+loader: taskgraph.loader.transform:loader
+
+kind-dependencies:
+    - fetch
+
+transforms:
+    - taskgraph.transforms.job:transforms
+    - taskgraph.transforms.cached_tasks:transforms
+    - taskgraph.transforms.task:transforms
+
+job-defaults:
+    treeherder:
+        kind: build
+        platform: toolchains/opt
+        tier: 1
+    run:
+        using: toolchain-script
+    worker-type: b-android
+    worker:
+        docker-image: {in-tree: base}
+        max-run-time: 1800
+        env: {}
+
+jobs:
+    linux64-android-sdk-linux-repack:
+        description: "Android SDK (Linux) repack toolchain build"
+        treeherder:
+            symbol: TL(android-sdk-linux)
+        attributes:
+            artifact_prefix: mobile/android-sdk
+        run:
+            script: repack-android-sdk-linux.sh
+            resources: []
+            toolchain-artifact: mobile/android-sdk/android-sdk-linux.tar.xz
+            toolchain-alias: android-sdk-linux
+        fetches:
+            fetch:
+                - android-sdk

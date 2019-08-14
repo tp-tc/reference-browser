@@ -5,6 +5,10 @@
 
 loader: taskgraph.loader.transform:loader
 
+kind-dependencies:
+    - toolchain
+
+
 transforms:
     - taskgraph.transforms.job:transforms
     - taskgraph.transforms.task:transforms
@@ -18,6 +22,9 @@ job-defaults:
         max-run-time: 7200
     run:
         use-caches: false
+    fetches:
+        toolchain:
+            - android-sdk-linux
     treeherder:
         kind: test
         platform: 'lint/opt'

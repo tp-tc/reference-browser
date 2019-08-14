@@ -10,8 +10,6 @@ from taskgraph.util.schema import Schema
 from voluptuous import Required, Optional
 from six import text_type
 
-from pipes import quote as shell_quote
-
 gradlew_schema = Schema(
     {
         Required("using"): "gradlew",
@@ -37,8 +35,12 @@ def configure_gradlew(config, job, taskdesc):
     run = job["run"]
     worker = taskdesc["worker"] = job["worker"]
 
-    worker.setdefault("env", {}).update(
-        {"ANDROID_SDK_ROOT": path.join(run["workdir"], "android-sdk-linux")}
+    worker["env"].update(
+        {
+            "ANDROID_SDK_ROOT": path.join(
+                run["workdir"], worker["env"]["MOZ_FETCHES_DIR"], "android-sdk-linux"
+            )
+        }
     )
 
     # defer to the run_task implementation
