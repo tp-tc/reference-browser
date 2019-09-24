@@ -10,6 +10,7 @@ task-priority: lowest
 
 taskgraph:
     register: rb_taskgraph:register
+    decision-parameters: rb_taskgraph:get_decision_parameters
     repositories:
         mobile:
             name: "Reference Browser"
